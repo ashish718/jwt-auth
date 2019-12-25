@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Socket IO</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		
+	$(function(){
+
+		var socket = io();
+
+		$('#like').click(function(e){
+			e.preventDefault(); // prevent page reloading
+			socket.emit('like-notification', $('#img1').attr('src'));
+			return false;
+		});
+
+		socket.on('like-notification', function(notification){
+			$('#notifications').append("<br>"+ socket.username + " Likes Photo : " + notification);
+		})
+
+	});
+
+	</script>
+</head>
+<body>
+	
+	<img src="https://www.w3schools.com/images/picture.jpg" id="img1" value="My first image"></li>
+	<input type="button" id="like" name="like" value="Like" >
+
+	<div id="notifications"></div>
+
+</body>
+</html>
